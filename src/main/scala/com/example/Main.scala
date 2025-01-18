@@ -2,7 +2,6 @@ package com.example
 
 import com.example.cafeshop.{Cafe, Charge, CreditCard}
 
-
 object Main {
   def main(args: Array[String]): Unit = {
     val cafe = new Cafe()

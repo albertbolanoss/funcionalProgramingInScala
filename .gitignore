@@ -7,3 +7,8 @@ gradlew.bat
 
 # .idea files
 .idea
+
+# Scala binaries
+/*.class
+/*.tasty
+/bin/
