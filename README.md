@@ -52,5 +52,5 @@ scala {path of module to run}
 
 ```sh
 # Core concept of functions (Functions Pure, Monomorphobic, Polymorphobic, Partial application, Curring, Uncurring, Composition)
-scala src/main/scala/com/example/FunctionModule.scala
+scala src/main/scala/com/example/bases/FunctionModule.scala
 ```

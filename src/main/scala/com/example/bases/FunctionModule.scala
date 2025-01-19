@@ -139,6 +139,34 @@ object FPConceptsModule {
     //def compose[A,B,C](f: B => C, g: A => B): A => C = a => f(g(a))
 
 
+    // Map Reduce 
+    // This is a higher-order function that takes a list of A, an initial value of type B, and a function f that combines an A with a B to produce a B.
+    def mapReduce[A, B](list: List[A], initial: B)(f: (B, A) => B): B = {
+        @annotation.tailrec
+        def loop(remaining: List[A], acc: B): B = {
+            remaining match {
+                case Nil => acc
+                case head :: tail => loop(tail, f(acc, head))
+            }
+        }
+        loop(list, initial)
+    }
+
+    def filter[A](items: List[A], p: A => Boolean): List[A] = {
+        @annotation.tailrec
+        def loop(remaining: List[A], acc: List[A]): List[A] = {
+            remaining match {
+            case Nil => acc // Caso base: si la lista está vacía, retorna el acumulador
+            case head :: tail =>
+                if (p(head)) loop(tail, acc :+ head) // Si cumple el predicado, agrégalo al acumulador
+                else loop(tail, acc) // Si no, continúa sin agregarlo
+            }
+        }
+
+        loop(items, List.empty) 
+    } 
+
+
 
     def main(args: Array[String]): Unit = {
         println(formatAbs(-42))
