@@ -9,6 +9,6 @@ gradlew.bat
 .idea
 
 # Scala binaries
-/*.class
-/*.tasty
+*.class
+*.tasty
 /bin/

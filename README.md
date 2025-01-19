@@ -44,6 +44,13 @@ gradlew.bat run
 
 ```sh
 scala -version #
-scalac [path of module to compile]
-scala [path of module to run]
+scalac {path of module to compile}
+scala {path of module to run}
+```
+
+#### Run single Modules
+
+```sh
+# Core concept of functions (Functions Pure, Monomorphobic, Polymorphobic, Partial application, Curring, Uncurring, Composition)
+scala src/main/scala/com/example/FunctionModule.scala
 ```
