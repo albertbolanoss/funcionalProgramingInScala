@@ -5,8 +5,10 @@
 gradlew
 gradlew.bat
 
-# .idea files
+# IDEs
 .idea
+.vscode
+
 
 # Scala binaries
 *.class
@@ -17,3 +19,7 @@ gradlew.bat
 
 # Ignore Gradle build output directory
 build
+
+# SBT
+target
+project
