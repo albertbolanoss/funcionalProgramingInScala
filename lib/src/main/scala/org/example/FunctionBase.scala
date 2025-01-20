@@ -22,7 +22,8 @@ object FunctionBase {
   
     // Apply a function to each element of a list and combine the results
     // Polimorphic function that takes a list of A, an initial value of type B and a function (B, A) => B and returns a value of type B
-    def mapReduce[A, B](list: List[A], initial: B)(f: (B, A) => B): B = {
+    def mapReduce[A, B](items: List[A], initial: B)(f: (B, A) => B): B = {
+        val safeItems = Option(items).getOrElse(List.empty[A])
         @annotation.tailrec
         def loop(remaining: List[A], acc: B): B = {
             remaining match {
@@ -30,12 +31,13 @@ object FunctionBase {
                 case head :: tail => loop(tail, f(acc, head))
             }
         }
-        loop(list, initial)
+        loop(safeItems, initial)
     }
 
     // Filter a list of elements that satisfy a predicate
     // Polimorphic function that takes a list of A and a predicate function A => Boolean and returns a list of A
     def filter[A](items: List[A], p: A => Boolean): List[A] = {
+        val safeItems = Option(items).getOrElse(List.empty[A])
         @annotation.tailrec
         def loop(remaining: List[A], acc: List[A]): List[A] = {
             remaining match {
@@ -46,6 +48,22 @@ object FunctionBase {
             }
         }
 
-        loop(items, List.empty) 
+        loop(safeItems, List.empty) 
+    }
+
+    // Map a function over a list of elements
+    // Polimorphic function that takes a list of A and a function A => A and returns a list of A
+    def map[A](items: List[A], f: A => A): List[A] = {
+       val safeItems = Option(items).getOrElse(List.empty[A]) 
+       @annotation.tailrec
+        def loop(remaining: List[A], acc: List[A]): List[A] = {
+            remaining match {
+            case Nil => acc
+            case head :: tail => loop(tail, acc :+ f(head))
+                
+            }
+        }
+
+        loop(safeItems, List.empty) 
     } 
 }

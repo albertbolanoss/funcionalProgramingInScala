@@ -52,6 +52,17 @@ class FunctionBaseSuite extends AnyFunSuite {
     assert(total == BigDecimal("3792.72"))
   }
 
+  test("mapReduce should handle a null list safely and return the initial value") {
+    val nullStock: List[Stock] = null
+
+    val total = FunctionBase.mapReduce(nullStock, BigDecimal(0)) { (acc: BigDecimal, item: Stock) =>
+      acc + (item.quantity * item.price)
+    }
+
+    // Verifica que el total sea igual al valor inicial, ya que la lista es nula
+    assert(total == BigDecimal(0))
+  }
+
   test("filter filters a list based on a predicate") {
     val stock = List(
       Stock("Laptop", 2, BigDecimal("1200.50")),
@@ -71,5 +82,38 @@ class FunctionBaseSuite extends AnyFunSuite {
     val numbers = List(1, 2, 3, 4, 5, 6)
     val evenNumbers = FunctionBase.filter(numbers, (x: Int) => x % 2 == 0)
     assert(evenNumbers == List(2, 4, 6))
+  }
+
+  test("filter should handle a null list safely and return an empty list") {
+    val numbers: List[Int] = null
+
+    val evenNumbers = FunctionBase.filter(numbers, (x: Int) => x % 2 == 0)
+    assert(evenNumbers == List.empty[Int])
+  }
+
+  test("map should apply a function to each element of a list and combine the results") {
+    val stock = List(
+      Stock("Laptop", 2, BigDecimal("1200.50")),
+      Stock("Mouse", 5, BigDecimal("25.75")),
+      Stock("Monitor", 3, BigDecimal("320.99")),
+      Stock("Teclado", 4, BigDecimal("75.00"))
+    )
+
+    val pricesWithTaxes =  FunctionBase.map(stock.map(_.price), (price: BigDecimal) => price * 1.19)
+    
+    assert(pricesWithTaxes == List(
+        BigDecimal("1428.5950"),
+        BigDecimal("30.6425"),
+        BigDecimal("381.9781"),
+        BigDecimal("89.25")
+    ))
+  }
+
+  test("map should handle a null list safely and return an empty list") {
+    val nullList: List[BigDecimal] = null
+
+    val result = FunctionBase.map(nullList, (price: BigDecimal) => price * 1.19)
+
+    assert(result == List.empty[BigDecimal])
   }
 }

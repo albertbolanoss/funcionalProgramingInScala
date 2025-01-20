@@ -61,4 +61,11 @@ class MathBaseSuite extends AnyFunSuite {
     assert(sum(0, 0, 0) == 0)
     assert(sum(-1, -2, -3) == -6)
   }
+
+  test("andThen should compose two functions") {
+    val f = (x: Double) => math.Pi / 2 - x
+    val cosAndSen = f andThen math.sin
+
+    assert(cosAndSen(0) == 1)
+  }
 }
