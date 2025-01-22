@@ -1,12 +1,6 @@
 package com.example.cafeshop
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
-
-@RunWith(classOf[JUnitRunner])
-class CafeShopSuite extends AnyFunSuite {
-
+class CafeShopSuite extends munit.FunSuite {
   test("buyCoffee should return a Coffee and a Charge with the correct price") {
     val cc = CreditCard(1234567890L)
     val cafe = new Cafe
@@ -64,7 +58,7 @@ class CafeShopSuite extends AnyFunSuite {
     val charge1 = Charge(cc1, 2.5)
     val charge2 = Charge(cc2, 3.0)
 
-    assertThrows[Exception] {
+    intercept[Exception] {
       charge1.combine(charge2)
     }
   }

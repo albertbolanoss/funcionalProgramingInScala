@@ -1,14 +1,12 @@
-name := "FuncionalProgramingInScala"
+val scala3Version = "3.6.3"
 
-version := "1.0"
+lazy val root = project
+  .in(file("."))
+  .settings(
+    name := "funcionalProgramingInScala",
+    version := "0.1.0-SNAPSHOT",
 
-scalaVersion := "3.4.2"
+    scalaVersion := scala3Version,
 
-libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.2.17" % Test,
-  "org.scalatestplus" %% "junit-4-13" % "3.2.10.0" % Test,
-  "junit" % "junit" % "4.13.2" % Test
-)
-
-Compile / scalaSource := baseDirectory.value / "lib" / "src" / "main" / "scala"
-Test / scalaSource := baseDirectory.value / "lib" / "src" / "test" / "scala"
+    libraryDependencies += "org.scalameta" %% "munit" % "1.0.0" % Test
+  )

@@ -1,12 +1,7 @@
 package org.example
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
-class FunctionBaseSuite extends AnyFunSuite {
-
+class FunctionBaseSuite extends munit.FunSuite {
   case class Stock(name: String, quantity: Int, price: BigDecimal) {}
 
   test("partial1 applies a partial function") {

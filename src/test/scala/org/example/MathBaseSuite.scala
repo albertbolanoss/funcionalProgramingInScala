@@ -1,12 +1,7 @@
 package org.example
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
-
-@RunWith(classOf[JUnitRunner])
-class MathBaseSuite extends AnyFunSuite {
- test("abs should return the absolute value of a number") {
+class MathBaseSuite extends munit.FunSuite {
+  test("abs should return the absolute value of a number") {
     assert(MathBase.abs(5) == 5)
     assert(MathBase.abs(-5) == 5)
     assert(MathBase.abs(0) == 0)

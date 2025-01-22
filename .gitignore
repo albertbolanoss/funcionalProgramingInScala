@@ -1,25 +1,33 @@
-# Gradle files
-/.gradle
-/gradle
-/build
-gradlew
-gradlew.bat
+# macOS
+.DS_Store
 
-# IDEs
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/local-plugins.sbt
+.history
+.ensime
+.ensime_cache/
+.sbt-scripted/
+local.sbt
+bin/
+
+# Bloop
+.bsp
+
+# VS Code
+.vscode/
+
+# Metals
+.bloop/
+.metals/
+metals.sbt
+
+# IDEA
 .idea
-.vscode
-
-
-# Scala binaries
-*.class
-*.tasty
-/bin/
-# Ignore Gradle project-specific cache directory
-.gradle
-
-# Ignore Gradle build output directory
-build
-
-# SBT
-target
-project
+.idea_modules
+/.worksheet/
