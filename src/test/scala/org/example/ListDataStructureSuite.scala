@@ -15,4 +15,69 @@ class ListDataStructureSuite extends FunSuite {
     val ex3: List[String] = Cons("a", Cons("b", Nil))
     assert(ex3.toString == "Cons(a, Cons(b, Nil))")
   }
+
+  test("sum should return 0 for an empty list") {
+    val ex1: List[Int] = Nil
+    assertEquals(ListDataStructure.sum(ex1), 0)
+  }
+
+  test("sum should return the sum of all elements in the list") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.sum(ex2), 6)
+  }
+
+  test("product should return 1.0 for an empty list") {
+    val ex1: List[Double] = Nil
+    assertEquals(ListDataStructure.product(ex1), 1.0)
+  }
+
+  test("product should return 0.0 if the list contains 0.0") {
+    val ex2: List[Double] = Cons(1.0, Cons(0.0, Cons(3.0, Nil)))
+    assertEquals(ListDataStructure.product(ex2), 0.0)
+  }
+
+  test("product should return the product of all elements in the list") {
+    val ex3: List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Nil)))
+    assertEquals(ListDataStructure.product(ex3), 6.0)
+  }
+
+  test("fill should return Nil for n <= 0") {
+    assertEquals(ListDataStructure.fill(0, "a"), Nil)
+    assertEquals(ListDataStructure.fill(-1, "a"), Nil)
+  }
+
+  test("fill should return a list with n elements") {
+    val result = ListDataStructure.fill(3, "a")
+    assertEquals(result.toString, "Cons(a, Cons(a, Cons(a, Nil)))")
+  }
+
+  test("fill should return a list with the correct elements") {
+    val result = ListDataStructure.fill(2, 5)
+    assertEquals(result.toString, "Cons(5, Cons(5, Nil))")
+  }
+
+  test("pattern matching on List should return the correct value") {
+    val x = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Nil))))) match {
+      case Cons(x, Cons(2, Cons(4, _))) => x  // match if the first is x and the second is 2 and the third is 4
+      case Nil => 42 // match if the list is empty
+      case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y // match if the first is x, the second is y and the third is 3 and the fourth is 4
+      case Cons(h, t) => h + ListDataStructure.sum(t)  // match if the list is not empty
+      case _ => 101 // match anything else
+    }
+    assertEquals(x, 3)
+  }
+  
+
+  test("pattern matching on List (using apply) should return the correct value") {
+    val x = ListDataStructure.apply(1,2,3,4,5) match {
+      case Cons(x, Cons(2, Cons(4, _))) => x  // match if the first is x and the second is 2 and the third is 4
+      case Nil => 42 // match if the list is empty
+      case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y // match if the first is x, the second is y and the third is 3 and the fourth is 4
+      case Cons(h, t) => h + ListDataStructure.sum(t)  // match if the list is not empty
+      case _ => 101 // match anything else
+    }
+    assertEquals(x, 3)
+  }
+
+
 }
