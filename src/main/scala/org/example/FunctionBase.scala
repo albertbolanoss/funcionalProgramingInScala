@@ -1,5 +1,7 @@
 package org.example
 
+
+
 object FunctionBase {
     // Partial application
     // It’s a higher-order function for performing what’s called partial application
@@ -19,51 +21,5 @@ object FunctionBase {
 
     // The compose function takes two functions, f and g, and returns a function that is the composition of f and g.
     def compose[A,B,C](f: B => C, g: A => B): A => C = (a: A) => f(g(a))  
-  
-    // Apply a function to each element of a list and combine the results
-    // Polimorphic function that takes a list of A, an initial value of type B and a function (B, A) => B and returns a value of type B
-    def mapReduce[A, B](items: List[A], initial: B)(f: (B, A) => B): B = {
-        val safeItems = Option(items).getOrElse(List.empty[A])
-        @annotation.tailrec
-        def loop(remaining: List[A], acc: B): B = {
-            remaining match {
-                case Nil => acc
-                case head :: tail => loop(tail, f(acc, head))
-            }
-        }
-        loop(safeItems, initial)
-    }
 
-    // Filter a list of elements that satisfy a predicate
-    // Polimorphic function that takes a list of A and a predicate function A => Boolean and returns a list of A
-    def filter[A](items: List[A], p: A => Boolean): List[A] = {
-        val safeItems = Option(items).getOrElse(List.empty[A])
-        @annotation.tailrec
-        def loop(remaining: List[A], acc: List[A]): List[A] = {
-            remaining match {
-            case Nil => acc
-            case head :: tail =>
-                if (p(head)) loop(tail, acc :+ head)
-                else loop(tail, acc)
-            }
-        }
-
-        loop(safeItems, List.empty) 
-    }
-
-    // Map a function over a list of elements
-    // Polimorphic function that takes a list of A and a function A => A and returns a list of A
-    def map[A](items: List[A], f: A => A): List[A] = {
-       val safeItems = Option(items).getOrElse(List.empty[A]) 
-       @annotation.tailrec
-        def loop(remaining: List[A], acc: List[A]): List[A] = {
-            remaining match {
-            case Nil => acc
-            case head :: tail => loop(tail, acc :+ f(head))
-                
-            }
-        }
-
-        loop(safeItems, List.empty) 
-    } 
 }
