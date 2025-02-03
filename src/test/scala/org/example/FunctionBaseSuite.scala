@@ -33,4 +33,29 @@ class FunctionBaseSuite extends munit.FunSuite {
     assert(composedFunction(4) == 14) // (4 + 3) * 2
     assert(composedFunction(0) == 6)  // (0 + 3) * 2
   }
+
+  test("apply should return an empty list when no arguments are provided") {
+    val result = FunctionBase.apply()
+    assertEquals(result, Nil)
+  }
+
+  test("apply should return a list with a single element when one argument is provided") {
+    val result = FunctionBase.apply(1)
+    assertEquals(result, Cons(1, Nil))
+  }
+
+  test("apply should return a list with multiple elements when multiple arguments are provided") {
+    val result = FunctionBase.apply(1, 2, 3)
+    assertEquals(result, Cons(1, Cons(2, Cons(3, Nil))))
+  }
+
+  test("apply should handle different types of elements") {
+    val result = FunctionBase.apply("a", "b", "c")
+    assertEquals(result, Cons("a", Cons("b", Cons("c", Nil))))
+  }
+
+  test("apply should handle a mix of different types") {
+    val result = FunctionBase.apply(1, "a", 3.14)
+    assertEquals(result, Cons(1, Cons("a", Cons(3.14, Nil))))
+  }
 }

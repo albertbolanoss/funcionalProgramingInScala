@@ -20,6 +20,13 @@ object FunctionBase {
     def uncurry[A, B, C](f: A => B => C): (A, B) => C = (a, b) => f(a)(b)
 
     // The compose function takes two functions, f and g, and returns a function that is the composition of f and g.
-    def compose[A,B,C](f: B => C, g: A => B): A => C = (a: A) => f(g(a))  
+    def compose[A,B,C](f: B => C, g: A => B): A => C = (a: A) => f(g(a)) 
+
+    // Variadic functions
+    // The function apply in the object List is a variadic function, meaning it accepts zero or more arguments of type A:
+    // By calling this function apply and placing it in the companion object, we can invoke it with syntax like List(1,2,3,4) or List("hi","bye"), with as many values as we want separated by commas
+    def apply[A](as: A*): List[A] =
+        if (as.isEmpty) Nil
+        else Cons(as.head, apply(as.tail: _*))
 
 }
