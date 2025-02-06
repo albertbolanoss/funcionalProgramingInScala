@@ -124,4 +124,22 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(ListDataStructure.dropWhile(ex2, x => x % 2 == 0).toString, "Cons(1, Cons(3, Nil))")
   }
 
+  test("append should return the second list if the first list is empty") {
+    val ex1: List[Int] = Nil
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.append(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Nil)))")
+  }
+
+  test("append should return the first list if the second list is empty") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    val ex2: List[Int] = Nil
+    assertEquals(ListDataStructure.append(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Nil)))")
+  }
+
+  test("append should return the concatenation of the two lists") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    val ex2: List[Int] = Cons(4, Cons(5, Cons(6, Nil)))
+    assertEquals(ListDataStructure.append(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil))))))")
+  }
+
 }

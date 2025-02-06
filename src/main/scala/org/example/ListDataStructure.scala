@@ -69,4 +69,9 @@ object ListDataStructure {
     case Cons(head, tail) => Cons(head, dropWhile(tail, f))
   }
 
+  def append[A](list1: List[A], list2: List[A]): List[A] = list1 match {
+    case Nil => list2
+    case Cons(h,t) => Cons(h, append(t, list2))
+  }
+
 }
