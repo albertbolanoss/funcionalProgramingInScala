@@ -79,5 +79,49 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(x, 3)
   }
 
+  test("tail should return Nil for an empty list") {
+    val ex1: List[Int] = Nil
+    assertEquals(ListDataStructure.tail(ex1), Nil)
+  }
+
+  test("tail should return the tail of the list") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.tail(ex2).toString, "Cons(2, Cons(3, Nil))")
+  }
+
+  test("setHead should return Nil for an empty list") {
+    val ex1: List[Int] = Nil
+    assertEquals(ListDataStructure.setHead(ex1, 1), Nil)
+  }
+
+  test("setHead should return a new list with the new value as the head") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.setHead(ex2, 5).toString, "Cons(5, Cons(2, Cons(3, Nil)))")
+  }
+
+  test("addHead should return a new list with the new value as the head") {
+    val ex1: List[Int] = Nil
+    assertEquals(ListDataStructure.addHead(ex1, 1).toString, "Cons(1, Nil)")
+
+    val ex2: List[Int] = Cons(2, Cons(3, Nil))
+    assertEquals(ListDataStructure.addHead(ex2, 1).toString, "Cons(1, Cons(2, Cons(3, Nil)))")
+  }
+
+  test("drop should return Nil for an empty list") {
+    val ex1: List[Int] = Nil
+    assertEquals(ListDataStructure.drop(ex1, 1), Nil)
+  }
+
+  test("drop should return the list without the first n elements") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.drop(ex2, 2).toString, "Cons(3, Nil)")
+  }
+
+
+  test("drop while n < list.size should return the list without the first n elements") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+
+    assertEquals(ListDataStructure.dropWhile(ex2, x => x % 2 == 0).toString, "Cons(1, Cons(3, Nil))")
+  }
 
 }

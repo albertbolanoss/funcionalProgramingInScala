@@ -41,4 +41,32 @@ object ListDataStructure {
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
 
+
+  def tail[A](list: List[A]): List[A] = list match {
+    case Nil => Nil
+    case Cons(_, tail) => tail
+  }
+
+  def setHead[A](list: List[A], newValue: A): List[A] = list match {
+    case Nil => Nil
+    case Cons(_, tail) => Cons(newValue, tail)
+  }
+
+  def addHead[A](list: List[A], newValue: A): List[A] = list match {
+    case Nil => Cons(newValue, Nil)
+    case Cons(head, tail) => Cons(newValue, Cons(head, tail))
+  }
+
+  def drop[A](list: List[A], n: Int): List[A] = list match {
+    case Nil => Nil
+    case Cons(_, tail) if n > 0 => drop(tail, n - 1)
+    case _ => list
+  }
+
+  def dropWhile[A](list: List[A], f: A => Boolean): List[A] = list match {
+    case Nil => Nil
+    case Cons(head, tail) if f(head) => dropWhile(tail, f)
+    case Cons(head, tail) => Cons(head, dropWhile(tail, f))
+  }
+
 }
