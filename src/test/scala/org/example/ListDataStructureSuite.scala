@@ -189,4 +189,19 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(result.toString, "Cons(1, Cons(2, Cons(3, Nil)))")
   }
 
+  test("lengthLeft should return the length of the list") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.lengthLeft(ex2), 3)
+  }
+
+  test("reverse should return the list in reverse order") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.reverse(ex2).toString, "Cons(3, Cons(2, Cons(1, Nil)))")
+  }
+
+  test("foldRightUsinFoldLeft should return the sum of all elements in the list") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.foldRightUsinFoldLeft(ex2, 0, (_ + _)), 6)
+  }
+
 }

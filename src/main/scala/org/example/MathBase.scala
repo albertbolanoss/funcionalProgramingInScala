@@ -11,6 +11,14 @@ object MathBase {
     // Pure function (no side effects)
     // Mono-morphic function (only works with Int)
     // Using tail recursion
+
+    /*
+    La anotación @annotation.tailrec en Scala se utiliza para asegurar que una función es recursiva por la cola (tail recursive).
+    Sin embargo, simplemente agregar esta anotación no convierte automáticamente una función no recursiva por la cola en una que lo sea. La función ya debe ser recursiva por la cola para que la anotación sea válida.
+
+    En el código que proporcionaste, la función loop ya es recursiva por la cola porque la llamada recursiva loop(n + 1) es la última operación que se realiza en la rama recursiva.
+    Por lo tanto, la anotación @annotation.tailrec es apropiada y el código es correcto tal como está.
+    */
     def factorial(n: Int): Int = {
         @annotation.tailrec
         def go(n: Int, acc: Int): Int = 

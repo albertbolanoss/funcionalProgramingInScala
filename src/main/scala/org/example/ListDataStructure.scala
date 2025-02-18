@@ -97,17 +97,33 @@ object ListDataStructure {
     6
   */
   // using foldRight is not possible to short-circuit the computation
+  // La implementación de foldRight que has proporcionado no es stack safe porque no es recursiva por la cola (tail recursive).
+  // Esto significa que cada llamada recursiva a foldRight agrega un nuevo marco a la pila de llamadas (call stack).
+  // Para listas grandes, esto puede resultar en un desbordamiento de la pila (StackOverflowError), ya que la pila de llamadas tiene un límite de tamaño.
   def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = as match {
       case Nil => z
       case Cons(head, tail) => f(head, foldRight(tail, z)(f))
   }
 
   // using foldLeft is possible to short-circuit the computation
+  // Para hacer una versión stack safe, podemos implementar foldLeft, que es recursiva por la cola. 
+  // En foldLeft, la recursión ocurre al final de la función, lo que permite que el compilador optimice la recursión y reutilice el mismo marco de pila.
   def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
     case Nil => z
     // case Cons(0, _) => 0  // short-circuit
     case Cons(head, tail) => foldLeft(tail, f(z, head))(f)
   }
+
+  def reverse[A](as: List[A]): List[A] = {
+    foldLeft(as, Nil: List[A])((acc, x) => Cons(x, acc))
+  }
+
+  // Implementing foldRight in terms of foldLeft is indeed a useful exercise because it allows us to make foldRight tail-recursive and stack-safe.
+  // Let's explore how to do this and also consider the reverse scenario.
+  def foldRightUsinFoldLeft[A, B](as: List[A], acc: B, f: (A, B) => B): B = {
+    foldLeft(reverse(as), acc)((b, a) => f(a, b))
+  }
+
 
   /*
   _ + _     ⟶   (x, y) => x + y
@@ -121,11 +137,15 @@ object ListDataStructure {
 
   def sum2(ns: List[Int]): Int = foldRight(ns, 0)(_ + _) // _ + _ is a shorthand for (x, y) => x + y
 
+  def sum3(ns: List[Int]): Int = foldLeft(ns, 0)(_ + _) // _ + _ is a shorthand for (x, y) => x + y
+
   def product2(ns: List[Double]): Double = foldRight(ns, 1.0)(_ * _) // _ * _ is a shorthand for (x, y) => x * y
 
   def product3(ns: List[Double]): Double = foldLeft(ns, 1.0)(_ * _)
 
   def length[A](as: List[A]): Int = foldRight(as, 0)((_, acc) => acc + 1)
+
+  def lengthLeft[A](as: List[A]): Int = foldLeft(as, 0)((acc, _) => acc + 1)
 
 
 }
