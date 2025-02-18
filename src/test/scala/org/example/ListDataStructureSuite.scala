@@ -142,4 +142,51 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(ListDataStructure.append(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil))))))")
   }
 
+  test("dropWhileWithCurrying should return the list without the first n elements") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    // allow pass the function without specifying the type
+    assertEquals(ListDataStructure.dropWhileWithCurried(ex2)(x => x % 2 == 0).toString, "Cons(1, Cons(3, Nil))")
+  }
+
+  test("sum2 should return the sum of all elements in the list") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.sum2(ex2), 6)
+  }
+
+  test("product2 should return the product of all elements in the list") {
+    val ex3: List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Nil)))
+    assertEquals(ListDataStructure.product2(ex3), 6.0)
+  }
+
+  test("foldLeft should return the sum of all elements in the list") {
+    val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    assertEquals(ListDataStructure.foldLeft(ex2, 0)(_ + _), 6)
+  }
+
+  test("product3 should return the product of all elements in the list") {
+    val ex3: List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Nil)))
+    assertEquals(ListDataStructure.product3(ex3), 6.0)
+  }
+
+  test("foldLeft should return short circuit when zero is found") {
+    val ex2: List[Double] = Cons(1.0, Cons(0.0, Cons(3.0, Nil)))
+    assertEquals(ListDataStructure.product3(ex2), 0.0)
+  }
+
+  test("foldRight should return the sum of all elements in the list") {
+    // as = List(1,2,3)
+    // z = Nil: List[Int]
+    // f = Cons(_, _) (which is equivalent to (x, xs) => Cons(x, xs))
+
+    // foldRight(List(1,2,3), Nil: List[Int])(Cons(_, _))
+    // = Cons(1, foldRight(List(2,3), Nil: List[Int])(Cons(_, _)))
+    // = Cons(1, Cons(2, foldRight(List(3), Nil: List[Int])(Cons(_, _))))
+    // = Cons(1, Cons(2, Cons(3, foldRight(Nil, Nil: List[Int])(Cons(_, _)))))
+    // = Cons(1, Cons(2, Cons(3, Nil)))
+    // = List(1,2,3)
+
+    val result = ListDataStructure.foldRight(ListDataStructure.apply(1,2,3), Nil:List[Int])(Cons(_, _))
+    assertEquals(result.toString, "Cons(1, Cons(2, Cons(3, Nil)))")
+  }
+
 }

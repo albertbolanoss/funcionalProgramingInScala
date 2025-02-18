@@ -74,4 +74,58 @@ object ListDataStructure {
     case Cons(h,t) => Cons(h, append(t, list2))
   }
 
+  /**
+  The syntax for calling this version of dropWhile looks like dropWhile(xs)(f). 
+  That is, dropWhile(xs) is returning a function, which we then call with the argument f 
+  (in other words, dropWhile is curried[7]). 
+  The main reason for grouping the arguments this way is to assist with type inference. 
+  We can now use dropWhile without annotations:
+  */
+  def dropWhileWithCurried[A](as: List[A])(f: A => Boolean): List[A] = as match {
+      case Nil => Nil
+      case Cons(head, tail) if f(head) => dropWhileWithCurried(tail)(f)
+      case Cons(head, tail) => Cons(head, dropWhileWithCurried(tail)(f))
+  }
+
+  // Reduce the boilerplate of the previous functions using currying
+  /*
+    foldRight(Cons(1, Cons(2, Cons(3, Nil))), 0)((x,y) => x + y)
+    1 + foldRight(Cons(2, Cons(3, Nil)), 0)((x,y) => x + y)
+    1 + (2 + foldRight(Cons(3, Nil), 0)((x,y) => x + y))
+    1 + (2 + (3 + foldRight(Nil, 0)((x,y) => x + y)))
+    1 + (2 + (3 + (0)))
+    6
+  */
+  // using foldRight is not possible to short-circuit the computation
+  def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = as match {
+      case Nil => z
+      case Cons(head, tail) => f(head, foldRight(tail, z)(f))
+  }
+
+  // using foldLeft is possible to short-circuit the computation
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+    case Nil => z
+    // case Cons(0, _) => 0  // short-circuit
+    case Cons(head, tail) => foldLeft(tail, f(z, head))(f)
+  }
+
+  /*
+  _ + _     ⟶   (x, y) => x + y
+  _ * 2     ⟶   x => x * 2
+  _.head    ⟶   xs => xs.head
+  _ drop _  ⟶   (xs, n) => xs.drop(n)
+
+  val dropFirstN = _ drop _
+  println(dropFirstN(List(1, 2, 3, 4, 5), 2)) // Output: List(3, 4, 5)
+  */
+
+  def sum2(ns: List[Int]): Int = foldRight(ns, 0)(_ + _) // _ + _ is a shorthand for (x, y) => x + y
+
+  def product2(ns: List[Double]): Double = foldRight(ns, 1.0)(_ * _) // _ * _ is a shorthand for (x, y) => x * y
+
+  def product3(ns: List[Double]): Double = foldLeft(ns, 1.0)(_ * _)
+
+  def length[A](as: List[A]): Int = foldRight(as, 0)((_, acc) => acc + 1)
+
+
 }
