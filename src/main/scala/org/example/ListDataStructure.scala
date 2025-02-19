@@ -124,6 +124,12 @@ object ListDataStructure {
     foldLeft(reverse(as), acc)((b, a) => f(a, b))
   }
 
+  def appendUsingFoldLeft[A](a1: List[A], a2: List[A]): List[A] =
+    foldLeft(reverse(a1), a2)((acc, elem) => Cons(elem, acc))
+
+  def appendUsingFoldRight[A](a1: List[A], a2: List[A]): List[A] =
+    foldRight(a1, a2)((elem, acc) => Cons(elem, acc))
+
 
   /*
   _ + _     ⟶   (x, y) => x + y
@@ -146,6 +152,5 @@ object ListDataStructure {
   def length[A](as: List[A]): Int = foldRight(as, 0)((_, acc) => acc + 1)
 
   def lengthLeft[A](as: List[A]): Int = foldLeft(as, 0)((acc, _) => acc + 1)
-
 
 }

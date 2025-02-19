@@ -204,4 +204,16 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(ListDataStructure.foldRightUsinFoldLeft(ex2, 0, (_ + _)), 6)
   }
 
+  test("appendUsingFoldLeft should return the concatenation of the two lists") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    val ex2: List[Int] = Cons(4, Cons(5, Cons(6, Nil)))
+    assertEquals(ListDataStructure.appendUsingFoldLeft(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil))))))")
+  }
+
+  test("appendUsingFoldRight should return the concatenation of the two lists") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    val ex2: List[Int] = Cons(4, Cons(5, Cons(6, Nil)))
+    assertEquals(ListDataStructure.appendUsingFoldRight(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil))))))")
+  }
+
 }
