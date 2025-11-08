@@ -5,6 +5,7 @@ case class Charge(cc: CreditCard, amount: Double) {
   // We can only combine charges with the same credit card
   // If we try to combine charges with different credit cards, we throw an exception
   // We return a new charge with the sum of the amounts
+  // Combine or aggregation, it's inmutable and the base to apply reduce
   def combine(other: Charge): Charge =
     if (cc == other.cc)
       Charge(cc, amount + other.amount)
