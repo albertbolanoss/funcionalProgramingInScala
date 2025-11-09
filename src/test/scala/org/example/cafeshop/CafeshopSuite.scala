@@ -2,7 +2,7 @@ package com.example.cafeshop
 
 class CafeShopSuite extends munit.FunSuite {
   test("buyCoffee should return a Coffee and a Charge with the correct price") {
-    val cc = CreditCard(1234567890L)
+    val cc = CreditCard("1234567890L")
     val cafe = new Cafe
     val (coffee, charge) = cafe.buyCoffee(cc)
 
@@ -12,7 +12,7 @@ class CafeShopSuite extends munit.FunSuite {
   }
 
   test("buyCoffees should return a list of Coffees and a combined Charge for multiple coffees") {
-    val cc = CreditCard(1234567890L)
+    val cc = CreditCard("1234567890L")
     val cafe = new Cafe
     val (coffees, charge) = cafe.buyCoffees(cc, 3)
 
@@ -23,8 +23,8 @@ class CafeShopSuite extends munit.FunSuite {
   }
 
   test("coalesce should combine charges with the same credit card and group by card") {
-    val cc1 = CreditCard(1234567890L)
-    val cc2 = CreditCard(9876543210L)
+    val cc1 = CreditCard("1234567890L")
+    val cc2 = CreditCard("9876543210L")
 
     val charges = List(
       Charge(cc1, 2.5),
@@ -42,7 +42,7 @@ class CafeShopSuite extends munit.FunSuite {
   }
 
   test("combine should add charges with the same credit card") {
-    val cc = CreditCard(1234567890L)
+    val cc = CreditCard("1234567890L")
     val charge1 = Charge(cc, 2.5)
     val charge2 = Charge(cc, 3.0)
 
@@ -52,8 +52,8 @@ class CafeShopSuite extends munit.FunSuite {
   }
 
   test("combine should throw an exception when combining charges with different credit cards") {
-    val cc1 = CreditCard(1234567890L)
-    val cc2 = CreditCard(9876543210L)
+    val cc1 = CreditCard("1234567890L")
+    val cc2 = CreditCard("9876543210L")
 
     val charge1 = Charge(cc1, 2.5)
     val charge2 = Charge(cc2, 3.0)
@@ -69,7 +69,7 @@ class CafeShopSuite extends munit.FunSuite {
   }
 
   test("CreditCard should store the card number correctly") {
-    val cc = CreditCard(1234567890L)
-    assert(cc.number == 1234567890L)
+    val cc = CreditCard("1234567890L")
+    assert(cc.number == "1234567890L")
   }
 }

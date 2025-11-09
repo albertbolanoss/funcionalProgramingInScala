@@ -35,6 +35,13 @@ scalac {path of module to compile}
 scala {path of module to run}
 ```
 
+### REPL 
+```sh
+scala
+:load MyProgram.scala
+MyProgram.abs(-42)  
+```
+
 ## Content
 
 | Topic                                                             | Path                                  |
