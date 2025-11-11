@@ -154,6 +154,44 @@ object ListDataStructure {
     case Cons(_, tail) => filter(tail, f)
   }
 
+  // flatMap es la combinación de un map y un flatten (aplanar).
+  // f => List(x, -x)
+  // f(1) -> List(1, -1)
+  // f(2) -> List(2, -2)
+  // f(3) -> List(3, -3)
+  // = List( List(1, -1), List(2, -2), List(3, -3) )
+  // Flat => List(1, -1, 2, -2, 3, -3)
+  def flatMap[A, B](as: List[A], f: A => List[B]): List[B] = as match {
+    case Nil => Nil
+    case Cons(h, t) => append(f(h), flatMap(t, f))
+  }
+
+  /**
+   * EJERCICIO 3.22
+   * Suma los elementos de dos listas de forma pareada.
+   * List(1,2,3) y List(4,5,6) se convierten en List(5,7,9).
+   */
+  def addPairwise(a1: List[Int], a2: List[Int]): List[Int] = (a1, a2) match {
+    // Caso Recursivo: Ambas listas tienen elementos
+    case (Cons(h1, t1), Cons(h2, t2)) => 
+      Cons(h1 + h2, addPairwise(t1, t2))
+      
+    // Caso Base: Una o ambas listas están vacías
+    case (_, _) => 
+      Nil
+  }
+
+
+  def addPairwiseGeneric[A](a1: List[A], a2: List[A], f: (A, A) => A): List[A] = (a1, a2) match {
+    // Caso Recursivo: Ambas listas tienen elementos
+    case (Cons(h1, t1), Cons(h2, t2)) => 
+      Cons(f(h1, h2), addPairwiseGeneric(t1, t2, f))
+      
+    // Caso Base: Una o ambas listas están vacías
+    case (_, _) => 
+      Nil
+  }
+
   /*
   _ + _     ⟶   (x, y) => x + y
   _ * 2     ⟶   x => x * 2
@@ -176,4 +214,19 @@ object ListDataStructure {
 
   def lengthLeft[A](as: List[A]): Int = foldLeft(as, 0)((acc, _) => acc + 1)
 
+
+  /* 
+  https://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+
+  List existe en la biblioteca estándar de Scala, y usaremos la versión de la biblioteca estándar en capítulos posteriores. 
+  La principal diferencia entre la List desarrollada aquí y la versión de la biblioteca estándar es que Cons se llama :: (dos puntos, dos puntos), 
+  que se asocia a la derecha. Así que 1 :: 2 :: Nil es igual a 1 :: (2 :: Nil), que es igual a List(1,2).
+   */
+  /* 
+  def take(n: Int): List[A] - Devuelve una lista que consiste en los primeros n elementos de esta.
+  def takeWhile(f: A => Boolean): List[A] - Devuelve una lista que consiste en el prefijo válido más largo de esta cuyos elementos pasan todos el predicado f.
+  def forall(f: A => Boolean): Boolean - Devuelve true si y solo si todos los elementos de esta pasan el predicado f.
+  def exists(f: A => Boolean): Boolean - Devuelve true si algún elemento de esta pasa el predicado f.
+  scanLeft y scanRight - Son similares a foldLeft y foldRight, pero devuelven la List de resultados parciales en lugar de solo el valor acumulado final.
+   */
 }

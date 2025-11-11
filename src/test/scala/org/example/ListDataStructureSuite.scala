@@ -237,4 +237,31 @@ class ListDataStructureSuite extends FunSuite {
     val f = (a: Int) => a % 2 == 0
     assertEquals(ListDataStructure.filter(ex1, f).toString, "Cons(2, Cons(4, Nil))")
   }
+
+  test("flatmap") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(4, Nil)))
+    val f = (a: Int) => Cons(a, Cons(a * -1, Nil)) 
+    val expectedString = "Cons(1, Cons(-1, Cons(2, Cons(-2, Cons(4, Cons(-4, Nil))))))"
+  
+    assertEquals(ListDataStructure.flatMap(ex1, f).toString, expectedString)
+  }
+
+  test("sum of two list") {
+    val a1: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    val a2: List[Int] = Cons(4, Cons(5, Cons(6, Nil)))
+    
+    val expectedString = "Cons(5, Cons(7, Cons(9, Nil)))"
+  
+    assertEquals(ListDataStructure.addPairwise(a1, a2).toString, expectedString)
+  }
+
+  test("sum of two list using generic way") {
+    val a1: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
+    val a2: List[Int] = Cons(4, Cons(5, Cons(6, Nil)))
+    val f = (a: Int, b: Int) => a + b
+    
+    val expectedString = "Cons(5, Cons(7, Cons(9, Nil)))"
+  
+    assertEquals(ListDataStructure.addPairwiseGeneric(a1, a2, f).toString, expectedString)
+  }
 }
