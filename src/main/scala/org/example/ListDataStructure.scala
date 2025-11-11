@@ -213,20 +213,4 @@ object ListDataStructure {
   def length[A](as: List[A]): Int = foldRight(as, 0)((_, acc) => acc + 1)
 
   def lengthLeft[A](as: List[A]): Int = foldLeft(as, 0)((acc, _) => acc + 1)
-
-
-  /* 
-  https://www.scala-lang.org/api/current/scala/collection/immutable/List.html
-
-  List existe en la biblioteca estándar de Scala, y usaremos la versión de la biblioteca estándar en capítulos posteriores. 
-  La principal diferencia entre la List desarrollada aquí y la versión de la biblioteca estándar es que Cons se llama :: (dos puntos, dos puntos), 
-  que se asocia a la derecha. Así que 1 :: 2 :: Nil es igual a 1 :: (2 :: Nil), que es igual a List(1,2).
-   */
-  /* 
-  def take(n: Int): List[A] - Devuelve una lista que consiste en los primeros n elementos de esta.
-  def takeWhile(f: A => Boolean): List[A] - Devuelve una lista que consiste en el prefijo válido más largo de esta cuyos elementos pasan todos el predicado f.
-  def forall(f: A => Boolean): Boolean - Devuelve true si y solo si todos los elementos de esta pasan el predicado f.
-  def exists(f: A => Boolean): Boolean - Devuelve true si algún elemento de esta pasa el predicado f.
-  scanLeft y scanRight - Son similares a foldLeft y foldRight, pero devuelven la List de resultados parciales en lugar de solo el valor acumulado final.
-   */
 }
