@@ -74,6 +74,14 @@ object ListDataStructure {
     case Cons(h,t) => Cons(h, append(t, list2))
   }
 
+
+  def init[A](as: List[A]): List[A] = as match {
+    case Nil => Nil
+    case Cons(_, Nil) => Nil
+    case Cons(head, tail) => Cons(head, init(tail))
+  }
+
+
   /**
   The syntax for calling this version of dropWhile looks like dropWhile(xs)(f). 
   That is, dropWhile(xs) is returning a function, which we then call with the argument f 
@@ -130,6 +138,21 @@ object ListDataStructure {
   def appendUsingFoldRight[A](a1: List[A], a2: List[A]): List[A] =
     foldRight(a1, a2)((elem, acc) => Cons(elem, acc))
 
+  def toString[A](as: List[A]): List[A] = as match {
+    case Nil => Nil
+    case Cons(head, tail) => Cons(head, toString(tail))
+  }
+
+  def map[A, B](as: List[A], f: A => B): List[B] = as match {
+    case Nil => Nil
+    case Cons(head, tail) => Cons(f(head), map(tail, f))
+  }
+
+  def filter[A, B](as: List[A], f: A => Boolean): List[A] = as match {
+    case Nil => Nil
+    case Cons(head, tail) if(f(head)) => Cons(head, tail)
+    case Cons(_, tail) => filter(tail, f)
+  }
 
   /*
   _ + _     ⟶   (x, y) => x + y
