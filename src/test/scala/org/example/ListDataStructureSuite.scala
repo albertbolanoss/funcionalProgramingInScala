@@ -142,6 +142,11 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(ListDataStructure.append(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil))))))")
   }
 
+  test("init shoud reurn 1,2,3 for list 1,2,3,4") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(3, Cons(4, Nil))))
+    assertEquals(ListDataStructure.init(ex1).toString, "Cons(1, Cons(2, Cons(3, Nil)))")
+  }
+
   test("dropWhileWithCurrying should return the list without the first n elements") {
     val ex2: List[Int] = Cons(1, Cons(2, Cons(3, Nil)))
     // allow pass the function without specifying the type
@@ -216,4 +221,20 @@ class ListDataStructureSuite extends FunSuite {
     assertEquals(ListDataStructure.appendUsingFoldRight(ex1, ex2).toString, "Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil))))))")
   }
 
+  test("to String should return the string representation of the list") {
+    val ex1: List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Nil)))
+    assertEquals(ListDataStructure.toString(ex1).toString, "Cons(1.0, Cons(2.0, Cons(3.0, Nil)))")
+  }
+
+  test("map") {
+    val ex1: List[Double] = Cons(1.0, Cons(2.0, Cons(3.0, Nil)))
+    val f = (a: Double) => a.toString()
+    assertEquals(ListDataStructure.map(ex1, f).toString, "Cons(1.0, Cons(2.0, Cons(3.0, Nil)))")
+  }
+
+  test("filter") {
+    val ex1: List[Int] = Cons(1, Cons(2, Cons(4, Nil)))
+    val f = (a: Int) => a % 2 == 0
+    assertEquals(ListDataStructure.filter(ex1, f).toString, "Cons(2, Cons(4, Nil))")
+  }
 }
